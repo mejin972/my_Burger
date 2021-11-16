@@ -1,0 +1,26 @@
+div.space-between{
+    display: flex;
+    justify-content: space-between;
+}
+
+div.food-card_price{
+    width: 70%;
+    text-align: center;
+}
+
+div.img_card i{
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: rgb(212, 191, 191);
+    font-size: 25px;
+    /*-webkit-transition: all 0.1s;*/
+    transition: all 0.1s;
+}
+
+div.img_card i:hover{
+    top: 18px;
+    right: 28px;
+    font-size: 29px;
+    
+}

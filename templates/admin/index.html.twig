@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - my_Burger {% endblock %}
+
+{% block body %}
+    <div class="content_admin">
+        <a href="{{path('account')}}" class="btn btn-primary"> Retour </a> <br/>
+        <a href="{{path('admin_products')}}"> Voir les produits </a> <br/>
+        <a href="{{path('admin_category')}}"> Voir les category </a>
+    </div>
+{% endblock %}

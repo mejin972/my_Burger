@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{app.user.prenom}} - my_Burger{% endblock %}
+
+{% block stylesheets %}
+    
+{% endblock %}
+
+{% block body %}
+
+    <div class="content_account_info">
+        <h1> Mes information personnels </h1>
+
+        <a href="{{path('account')}}" class="btn btn-primary"> Retour</a>
+
+        <h5> Nom de famille </h5>
+        <sapn> {{app.user.nom}} </sapn>
+
+        <h5> Prénom</h5>
+        <sapn> {{app.user.prenom}} </sapn>
+
+        <h5> Adresse mail </h5>
+        <sapn> {{app.user.email}} </sapn>
+
+        <h5> Date de naissance </h5>
+        <sapn> {{app.user.birthday | date("m/d/Y")}} </sapn>
+
+        <h5> Genre </h5>
+        <span>
+            {% if app.user.genre == 'H'%}
+                HOMME
+            {% elseif app.user.genre == 'F'%}
+                FEMME 
+            {% elseif app.user.genre == 'Idenférent'%}
+                Non définit
+            {% endif %}
+        </span>
+    </div>
+    <a href="{{path('account_info_perso', {'id': app.user.id})}}" class="btn btn-primary"> Modifier </a>
+
+{% endblock %}

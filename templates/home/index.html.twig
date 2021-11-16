@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My - Burger{% endblock %}
+
+{% block carrousel %}{% endblock %}
+
+{% block body %}
+    <div class="content_home">
+
+        <h1> Bienvenue sur votre site My-Burger</h1>
+        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque efficitur massa id neque volutpat mollis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent fringilla nunc tincidunt finibus interdum. Nulla facilisi. Donec eget neque at mi faucibus luctus. Maecenas viverra ipsum urna, sed malesuada elit varius in. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam faucibus nunc scelerisque, dapibus sapien eu, rhoncus tortor. Integer commodo nisi eget libero viverra, vel malesuada tortor molestie. Pellentesque ullamcorper bibendum est at dapibus. Integer rutrum arcu urna, sed commodo nisi sagittis vitae. Proin ex ante, consectetur quis sodales sit amet, gravida sed dui. Ut dapibus ex ac nibh luctus porta. Vivamus metus felis, ornare sit amet ornare in, sollicitudin et erat. Duis non tellus scelerisque, tristique urna vestibulum, commodo arcu. Integer mattis augue vulputate gravida congue. </p>
+        
+        <h3> Présentation de notre restaurant</h3>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo felis eget orci commodo maximus. Integer eleifend dui eu neque tempus, a accumsan orci aliquam. Ut cursus ac felis venenatis condimentum. Fusce nec volutpat sem. Maecenas nulla ante, finibus vitae ultrices sed, blandit sed magna. Etiam eleifend, tortor vel aliquet commodo, dui urna maximus elit, a consequat arcu metus id quam. Donec augue purus, tempor ac efficitur eu, convallis eu lectus. Donec vel scelerisque est, non pharetra arcu. Aliquam et tincidunt mauris, sed imperdiet quam. Sed hendrerit, orci a pulvinar sollicitudin, nibh felis egestas est, vitae fermentum nulla urna ut dui. Morbi consectetur tristique lacus, non cursus augue feugiat a. Ut erat orci, laoreet id imperdiet non, cursus ac orci. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Sed posuere erat et eros viverra, et imperdiet libero condimentum. Cras convallis dui justo, in commodo sem interdum in.
+            Pellentesque hendrerit enim sit amet orci pretium, sit amet vulputate eros euismod. Fusce eget ligula eget lorem faucibus auctor. Nam pellentesque sed sem sed aliquam. Donec ornare efficitur erat, viverra condimentum est fermentum et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu molestie orci, quis accumsan mauris. Fusce a nulla id lectus suscipit fringilla mollis vel libero. Duis sed consequat nisi. Quisque feugiat felis a velit consequat semper. Nullam iaculis mi non pellentesque facilisis. Curabitur quis ex arcu. 
+        </p>
+
+        <div class="card" style="width: 18rem;">
+            <img src="{{asset('assets/images/home/enquete.jpg')}}" class="card-img-top" alt="Equête de satisfaction">
+            <div class="card-body">
+                <h5 class="card-title">My-Burger et moi</h5>
+                <p class="card-text">Prenez quelque minutes pour repondre à notre enquête de satisfaction. Votre avis nous intéresse. </p>
+                <a href="#" class="btn btn-primary">Commencer l'enquête</a>
+            </div>
+        </div>
+
+    </div>
+    
+
+{% endblock %}

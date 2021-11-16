@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{name}} - my_Burger{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('assets/css/product/card_product.css')}}" type="text/css">
+            
+{% endblock %}
+
+{% block body %}
+
+    <div class="content_menus">
+        {% if allMenus %}
+           {#
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Nom de l'article</th>
+                        <th scope="col">Description de l'article</th>
+                        <th scope="col">Prix</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for menu in allMenus %}
+                            <tr>
+                                <th scope="row"><img src="/uploads/images/products/{{menu.illustration}}"></th>
+                                <td>{{menu.name}}</td>
+                                <td>{{menu.description}}</td>
+                                <td>{{menu.prix}} €</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% elseif allMenus == null %}
+                
+                    <div class="content_none">
+                        <p> Aucun produits à afficher </p>
+                    </div>
+                    
+                {% endif %}
+            #}
+        
+
+            {% for menu in allMenus %}
+            {{dump(menu)}}
+                <div class="card" style="width: 18rem;">
+                    <div class="img_card">
+                        <img src="/uploads/images/products/{{menu.illustration}}" class="card-img-top" alt="{{menu.name}}">
+                        <a href="#!" title="ajouter aux favoris"><i class="far fa-heart"></i></a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{menu.name}}</h5>
+                        <a href="#!" class="food-card_author">{{menu.category.getName()}}</a>
+                        <p class="card-text">{{menu.description}}</p>
+                        <hr/>
+                        <div class="space-between">
+                            <div class="food-card_price">
+                                <span class=""> {{menu.prix}} €</span>
+                            </div>
+                            <div class="food-card_order-count">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary minus-btn" type="button" id="button-addon1"><i class="fa fa-minus"></i></button>
+                                    </div>
+                                    <input type="text" class="form-control input-manulator" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="0">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary add-btn" type="button" id="button-addon1"><i class="fa fa-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="" class="btn btn-info">Ajouter au panier</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        
+        {% endif %}
+
+    </div>
+
+   
+{% endblock %}
+{% block javascripts %}
+    <script src="{{asset('assets/js/addProduct/ajoutProduit.js')}}" type="text/javascript"></script>        
+{% endblock %}

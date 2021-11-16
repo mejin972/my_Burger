@@ -2,18 +2,136 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}My Burger{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{asset('assets/css/base/footer.css')}}" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+        {#<link rel="stylesheet" href="{{asset('assets/css/base/reset.css')}}" crossorigin="anonymous">#}
         {% block stylesheets %}
             {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
-
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
+            
         {% endblock %}
     </head>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{path('home')}}">My - Burger</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{path('menus_category')}}">Menus</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('burgers_category')}}">Sandwichs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('boissons_category')}}">Boissons</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('snacks_category')}}">Snacks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('desserts_category')}}">Desserts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        </li>
+                    </ul>
+                    <span class="user">
+                        {% if app.user %}
+                           <a href="{{path('account')}}"> {{app.user.prenom}} </a> | <a href="{{path('app_logout')}}"> Deconnection</a>
+                        {% else %}
+                            <a href="{{path('app_login')}}"> Se connecter </a> | <a href="{{path('register')}}"> S'inscrire </a>
+                        {% endif %}
+                    </span>
+                    <span class="panier">
+                        <a href="#"> <i class="fas fa-shopping-cart"></i> </a>
+                    </span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
     <body>
-        {% block body %}{% endblock %}
+        {% if block('carrousel') is defined %}
+            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-inner">
+
+                    {% for produit in produits_a_la_une %}
+                        <div class="carousel-item active">
+                            <img src="/uploads/images/products/{{produit.illustration}}" class="d-block w-100" alt="{{produit.slug}}">
+                        </div>
+                    {% endfor %}
+                    
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        {% endif %}
+
+        {% block body %}
+        
+        {% endblock %}
     </body>
+
+    <footer id="footer">
+        <div class="container_footer">
+            <div class="content_media">
+                <h4> Rester connecter </h4>
+                <div class="medias">
+                    <span> <a href="#" class="link_medias" ><img src="{{asset('assets/images/social_media/facebook.png')}}" alt="Facebook"></a> </span>
+                    <span> <a href="#" class="link_medias" ><img src="{{asset('assets/images/social_media/twitter.png')}}" alt="Twitter"></a> </span>
+                    <span> <a href="#" class="link_medias" ><img src="{{asset('assets/images/social_media/instagram.png')}}" alt="Instagram"></a> </span>
+                </div>
+            </div>
+            <nav>
+                <h6> Produits</h6>
+                <ul>
+                    <li><a href=""> Carte </a></li>
+                    <li><a href=""> Carte menus </a></li>
+                    <li><a href=""> Carte Burger </a></li>
+                </ul>
+            </nav>
+
+            <nav>
+                <h6> Information légal </h6>
+                <ul>
+                    <li><a href=""> Mention légal </a></li>
+                    <li><a href=""> CGV </a></li>
+                    <li><a href=""> Coockie </a></li>
+                </ul>
+            </nav>
+
+            <nav>
+                <h6>La companie</h6>
+                <ul>
+                    <li><a href=""> Histoire </a></li>
+                    <li><a href=""> Recrutement </a></li>
+                    <li><a href=""> Notre équipe </a></li>
+                </ul>
+            </nav>
+
+        </div>
+        <p> Le footer </p>
+    
+    </footer>
+
+    {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+            
+    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </html>

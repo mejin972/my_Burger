@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{app.user.email}} - my_Burger{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('assets/css/account/style.css')}}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="content_account">
+        {{dump(app.user)}}
+        <h1> Bonjour <span class="name">{{app.user.email}}</span> </h1>
+        <a href="{{path('admin')}}" class="btn btn-primary" > Manage </a>
+        <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
+            <div class="col">
+                <div class="card">
+                    <img src="{{asset('assets/images/account/padlock.png')}}" class="card-img-top" style="width: 60%; padding: 10px" alt="Information personnels">
+                    <div class="card-body">
+                        <h5 class="card-title">Mes informations personnels</h5>
+                        <p class="card-text">Retrouver et modifé vos informations personnels içi</p>
+                        <a href="{{path('account_info' , {id: app.user.id})}}" class="btn btn-primary stretched-link">Voir</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{{asset('assets/images/account/order.png')}}" class="card-img-top" style="width: 60%; padding: 10px" alt="Mes commandes">
+                    <div class="card-body">
+                        <h5 class="card-title">Mes commandes</h5>
+                        <p class="card-text">Retrouver l'historique de vos commandes </p>
+                        <a href="#" class="btn btn-primary stretched-link">Voir</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{{asset('assets/images/account/favoris.png')}}" class="card-img-top" style="width: 60%; padding: 10px" alt="Mes favoris">
+                    <div class="card-body">
+                        <h5 class="card-title">Mes favoris</h5>
+                        <p class="card-text">Voir et gérer vos favoris</p>
+                        <a href="#" class="btn btn-primary stretched-link">Voir</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{{asset('assets/images/account/medal.png')}}" class="card-img-top" style="width: 60%; padding: 10px" alt="Mes récompences">
+                    <div class="card-body">
+                        <h5 class="card-title">Mes récompences</h5>
+                        <p class="card-text">Toutes vos récompence et statue au même endroit</p>
+                        <a href="#" class="btn btn-primary stretched-link">Voir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
