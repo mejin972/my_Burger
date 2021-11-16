@@ -35,7 +35,7 @@ function increase_quantity(){
         console.log(errorMessage);
     }
 
-    Ajout_panier.href = "{{path('cart') |escape('js')}}";
+    Ajout_panier.href = "";
     console.log(Ajout_panier.href);
 }
 
