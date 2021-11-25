@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}my_Burger - Confirm Order{% endblock %}
+
+{% block body %}
+    <div class="content_comfirOrder">
+        <h1> Félicitation votre commande {{reference}} à été valider avec succès </h1>
+        <div class="centred bg-success">
+            <p> Retrouver l'historique de vos commande dans votre espace personnel <a href="{{path('account_order')}}" class="btn btn-primary"> Mes commandes </a> .</p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{app.user.prenom}} - my_Burger{% endblock %}
+
+{% block stylesheets %}
+    
+{% endblock %}
+
+{% block body %}
+
+    <div class="content_order_detail">
+      
+        <h1> Détail de la commande <span class="bg-success"> {{reference}} </sapn></h1>
+        <a href="{{path('account')}}" class="btn btn-info" title="retourner au compte"> Retour </a>
+        <table class="table">
+            <thead>
+                <tr>
+                    
+                    <th scope="col">Nom</th>
+                    <th scope="col">Quantité</th>
+                    <th scope="col">Prix unt</th>
+                    <th scope="col"> Prix total </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set total_commande = null %}
+                {% for product in order.orderDetails %}
+                {% set total_commande = total_commande + product.total %}
+        
+                    <tr>
+                        
+                        <td>{{product.product}}</td>
+                        <td>{{product.quantity}}</td>
+                        <td>{{product.prix | number_format(2, ',', '.')}} €</td>
+                        <td>{{product.total | number_format(2, ',', '.')}} €</td>
+
+                    </tr>
+                {% endfor %}
+               
+            </tbody>
+        </table>
+        <div class="text-right">
+            <span> <b> Total de la commande: </b> {{ total_commande | number_format(2, ',', '.') }} €</sapn>
+        </div>
+    </div>
+    
+{% endblock %}

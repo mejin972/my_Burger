@@ -1,52 +1,67 @@
-let button_minus = document.querySelector(".btn.btn-outline-secondary.minus-btn");
-console.log(button_minus);
+let button_minus = document.querySelectorAll(".btn.btn-outline-secondary.minus-btn");
 
-let button_add = document.querySelector(".btn.btn-outline-secondary.add-btn");
-console.log(button_add);
+let button_add = document.querySelectorAll(".btn.btn-outline-secondary.add-btn");
 
-let input_quantity = document.querySelector(".form-control.input-manulator");
-console.log(input_quantity);
+let input_quantity = document.querySelectorAll(".form-control.input-manulator");
+
 let errorMessage;
 
-let Ajout_panier = document.querySelector(".btn.btn-info");
-console.log(Ajout_panier.href);
+let Ajout_panier = document.querySelectorAll(".btn.btn-info");
+
+let a = document.querySelectorAll("span.a");
+
+let b = document.querySelectorAll("span.b");
 
 
-button_add.addEventListener(
-    "click",
-    function(){
-        increase_quantity();
+button_add.forEach(function(item, index){
+    item.addEventListener(
+        "click",
+        function(e){
+            var target = e.target;
+            increase_quantity(index);
+        }
+    )
+});
+
+button_minus.forEach(function(item , index) {
+    item.addEventListener(
+        "click",
+        function(e){
+            var target = e.target;
+            decrease_quantity(index);
+        }
+    )
+});
+
+
+function increase_quantity(index){
+    if (input_quantity[index].value <10) {
+        input_quantity[index].value++;
     }
-)
-button_minus.addEventListener(
-    "click",
-    function(){
-        decrease_quantity();
-    }
-
-)
-
-function increase_quantity(){
-    if (input_quantity.value <10) {
-        input_quantity.value++;
-    }
-    if (input_quantity.value == 10) {
+    if (input_quantity[index].value == 10) {
         errorMessage = "La quantité maximal de produit a été atteinte vous ne pouvez plus ajouter se produit";
         console.log(errorMessage);
     }
+    console.log(input_quantity[index].value);
+    b[index].innerText = input_quantity[index].value;
 
-    Ajout_panier.href = "";
-    console.log(Ajout_panier.href);
+    Ajout_panier[index].href = "http://127.0.0.1:8000/cart/" +a[index].innerText+"/"+b[index].innerText;
+    console.log(Ajout_panier[index].href);
 }
 
-function decrease_quantity(){
-    if (input_quantity.value >= 1) {
-        input_quantity.value--;
+function decrease_quantity(index){
+    if (input_quantity[index].value >= 1) {
+        input_quantity[index].value--;
     }
-    if (input_quantity.value == 0) {
+    if (input_quantity[index].value == 0) {
         errorMessage = "Se produit n'est plus présent dans votre panier";
         console.log(errorMessage);
     }
+    console.log(input_quantity[index].value);
+    b[index].innerText = input_quantity[index].value;
+
+    Ajout_panier[index].href = "http://127.0.0.1:8000/cart/" +a[index].innerText+"/"+b[index].innerText;
+    console.log(Ajout_panier.href);
     
 }
 

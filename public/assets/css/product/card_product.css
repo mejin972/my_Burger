@@ -24,3 +24,11 @@ div.img_card i:hover{
     font-size: 29px;
     
 }
+
+div.img_card a i.fas.fa-heart{
+    display:none;
+}
+
+div.none{
+    display: none;
+}

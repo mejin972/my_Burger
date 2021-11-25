@@ -9,7 +9,6 @@
 {% block body %}
 
     <div class="content_account">
-        {{dump(app.user)}}
         <h1> Bonjour <span class="name">{{app.user.email}}</span> </h1>
         <a href="{{path('admin')}}" class="btn btn-primary" > Manage </a>
         <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
@@ -29,7 +28,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Mes commandes</h5>
                         <p class="card-text">Retrouver l'historique de vos commandes </p>
-                        <a href="#" class="btn btn-primary stretched-link">Voir</a>
+                        <a href="{{path('account_order')}}" class="btn btn-primary stretched-link">Voir</a>
                     </div>
                 </div>
             </div>
@@ -39,7 +38,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Mes favoris</h5>
                         <p class="card-text">Voir et gérer vos favoris</p>
-                        <a href="#" class="btn btn-primary stretched-link">Voir</a>
+                        <a href="{{path('favoris')}}" class="btn btn-primary stretched-link">Voir</a>
                     </div>
                 </div>
             </div>

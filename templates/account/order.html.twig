@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{app.user.prenom}} - my_Burger{% endblock %}
+
+{% block stylesheets %}
+    
+{% endblock %}
+
+{% block body %}
+
+    <div class="content_order">
+    <a href="{{path('account')}}" class="btn btn-primary"> Retour </a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Référence</th>
+                    <th scope="col">Date</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <th scope="row"> {{order.reference}} </th>
+                        <td> {{order.createdAt |format_datetime(locale='fr') }} </td>
+                        <td> <a href="{{path('account_order_detail' , {'reference' : order.reference })}}"> Voir détail </a> </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+{% endblock %}

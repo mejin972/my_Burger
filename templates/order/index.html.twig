@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}my_Burger - Order{% endblock %}
+
+{% block body %}
+{{dump(cart)}}
+    <div class="content_order">
+        <h1> Ma Commande <span class="badge bg-secondary"> {{reference}} </span></h1>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">Prix unt</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Prix total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set prix_total = null %}
+                {% set total = null %}
+                {% set nbProduct = null %}
+
+                {% for product in cart %}
+                {% set nbProduct = nbProduct + product.quantity %}
+                {% set prix_total = (product.product.prix * product.quantity) %}
+                {% set total = total + (product.quantity * product.product.prix) %}
+                {{dump(product)}}
+                    <tr>
+                        <th scope="row">{{product.product.illustration}}</th>
+                        <td>{{product.product.name}}</td>
+                        <td>{{product.product.prix}}</td>
+                        <td>{{product.quantity}}</td>
+                        <td>{{prix_total}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-right">
+            <span><b>Total: </b>{{ total | number_format(2, ',', '.') }} €</span>
+            <span><b>Nombre de produit: </b>{{ nbProduct }} </span>
+        </div>
+        <a href="{{path('confirm_order' , {'reference' : reference } )}}" class="btn btn-primary"> Validez ma commande </a>
+    </div>
+{% endblock %}
