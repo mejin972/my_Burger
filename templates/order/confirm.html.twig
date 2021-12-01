@@ -6,7 +6,7 @@
     <div class="content_comfirOrder">
         <h1> Félicitation votre commande {{reference}} à été valider avec succès </h1>
         <div class="centred bg-success">
-            <p> Retrouver l'historique de vos commande dans votre espace personnel <a href="{{path('account_order')}}" class="btn btn-primary"> Mes commandes </a> .</p>
+            <p> Retrouver l'historique de vos commande dans votre espace personnel <a href="{{path('account_order', {'userId' : app.user.id})}}" class="btn btn-primary"> Mes commandes </a> .</p>
         </div>
     </div>
 {% endblock %}

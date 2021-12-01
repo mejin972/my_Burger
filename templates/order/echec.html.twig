@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}my_Burger - Echec Order{% endblock %}
+
+{% block body %}
+    <div class="content_comfirOrder">
+        <h1> Votre commande {{reference}} n'à pas pu être valider avec succès </h1>
+        <div class="centred bg-danger">
+            <p> Retrouver l'historique de vos commande dans votre espace personnel <a href="{{path('account_order',{'userId': app.user.id})}}" class="btn btn-primary"> Mes commandes </a> .</p>
+        </div>
+    </div>
+{% endblock %}

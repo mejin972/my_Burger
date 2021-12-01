@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}my_Burger - Order{% endblock %}
+{% block title %}my_Burger - Récapitulatif order n°{{reference}}{% endblock %}
 
 {% block body %}
-
-    <div class="content_order">
-        <h1> Ma Commande <span class="badge bg-secondary"> {{reference}} </span></h1>
+    <div class="content_RecapOrder">
         <table class="table">
             <thead>
                 <tr>
@@ -21,15 +19,15 @@
                 {% set total = null %}
                 {% set nbProduct = null %}
 
-                {% for product in cart %}
+                {% for product in products_order %}
                 {% set nbProduct = nbProduct + product.quantity %}
-                {% set prix_total = (product.product.prix * product.quantity) %}
-                {% set total = total + (product.quantity * product.product.prix) %}
+                {% set prix_total = (product.prix * product.quantity) %}
+                {% set total = total + (product.quantity * product.prix) %}
                 
                     <tr>
-                        <th scope="row">{{product.product.illustration}}</th>
-                        <td>{{product.product.name}}</td>
-                        <td>{{product.product.prix}}</td>
+                        <th scope="row"></th>
+                        <td>{{product.product}}</td>
+                        <td>{{product.prix}}</td>
                         <td>{{product.quantity}}</td>
                         <td>{{prix_total}}</td>
                     </tr>
@@ -40,7 +38,6 @@
             <span><b>Total: </b>{{ total | number_format(2, ',', '.') }} €</span>
             <span><b>Nombre de produit: </b>{{ nbProduct }} </span>
         </div>
-        <a href="{{path('validation_order' , {'reference' : reference } )}}" class="btn btn-primary"> Validez ma commande </a>
-        
+        <a href="{{path('stripe_creat_session' , {'reference' : reference } )}}" class="btn btn-primary"> Payer | {{total | number_format(2, ',', '.') }} €</a>
     </div>
 {% endblock %}
