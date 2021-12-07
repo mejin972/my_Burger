@@ -28,7 +28,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Mes commandes</h5>
                         <p class="card-text">Retrouver l'historique de vos commandes </p>
-                        <a href="{{path('account_order')}}" class="btn btn-primary stretched-link">Voir</a>
+                        <a href="{{path('account_order', {'userId' : app.user.id})}}" class="btn btn-primary stretched-link">Voir</a>
                     </div>
                 </div>
             </div>

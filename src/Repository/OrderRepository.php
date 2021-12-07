@@ -36,6 +36,29 @@ class OrderRepository extends ServiceEntityRepository
     }
     */
 
+    public function findByUserId($value)
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.user = :val')
+            ->setParameter('val', $value)
+            ->orderBy('o.id', 'DESC')
+            ->setMaxResults(100)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    public function findOneByStripeId($value): ?Order
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.stripe_sessions_id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     /*
     public function findOneBySomeField($value): ?Order
     {

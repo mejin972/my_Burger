@@ -32,14 +32,15 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/compte/mes_commandes", name="account_order")
+     * @Route("/compte/mes_commandes/{userId}", name="account_order")
      */
-    public function voirOrder(): Response
+    public function voirOrder($userId): Response
     {
-        $allOrders = $this->entityManager->getRepository(Order::class)->findAll();
 
+        $allUserOrders = $this->entityManager->getRepository(Order::class)->findByUserId($userId);
+        
         return $this->render('account/order.html.twig',[
-            'orders' => $allOrders,
+            'orders' => $allUserOrders,
         ]);
     }
 

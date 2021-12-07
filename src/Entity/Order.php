@@ -41,6 +41,16 @@ class Order
      */
     private $orderDetails;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $stripe_sessions_id;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $statue;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -113,6 +123,30 @@ class Order
                 $orderDetail->setOrderId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStripeSessionsId(): ?string
+    {
+        return $this->stripe_sessions_id;
+    }
+
+    public function setStripeSessionsId(string $stripe_sessions_id): self
+    {
+        $this->stripe_sessions_id = $stripe_sessions_id;
+
+        return $this;
+    }
+
+    public function getStatue(): ?int
+    {
+        return $this->statue;
+    }
+
+    public function setStatue(?int $statue): self
+    {
+        $this->statue = $statue;
 
         return $this;
     }

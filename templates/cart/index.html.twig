@@ -36,43 +36,51 @@
             {{message}}
           </div>
         {% endfor %}
+        {% if cart | length > 0 %}
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">nom</th>
+                <th scope="col">quantité</th>
+                <th scope="col"> Prix unt</th>
+                <th scope="col">Prix</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% set Total = null %}
+              {% set nbProduct = null %}
+              {% set productPriceAll = null %}
+              
+                {% for product in cart %}
+                  {% set productPriceAll = (product.product.prix * product.quantity)| number_format(2, ',', '.')%}
+                    <tr>
+                        <th scope="row">{{product.product.illustration}}</th>
+                        <td>{{product.product.name}}</td>
+                        <td>{{product.quantity}}</td>
+                        <td>{{product.product.prix}} €</td>
+                        <td>{{productPriceAll}} €</td>
+                        <td> <a href="{{path('delete_from_cart' , {'id': product.product.id})}}"> Supprimer </a></td>
+                    </tr>
+                    {% set nbProduct = nbProduct + product.quantity %}
+                    {% set Total = Total + (product.product.prix * product.quantity) %}
+                {% endfor %}
+              
+            </tbody>
+          </table>
 
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">nom</th>
-              <th scope="col">quantité</th>
-              <th scope="col"> Prix unt</th>
-              <th scope="col">Prix</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {% set Total = null %}
-            {% set nbProduct = null %}
-            {% set productPriceAll = null %}
+          <div class="text-right">
+            <span><b>Nombre de produit:</b> {{nbProduct}}</span>
+            <span><b>Total de mon panier:</b> {{ Total | number_format(2, ',', '.') }} €</span>
+          </div>
+          <a href="{{path('order')}}" class="btn btn-primary"> Validez mon panier </a>
 
-            {% for product in cart %}
-              {% set productPriceAll = (product.product.prix * product.quantity)| number_format(2, ',', '.')%}
-                <tr>
-                    <th scope="row">{{product.product.illustration}}</th>
-                    <td>{{product.product.name}}</td>
-                    <td>{{product.quantity}}</td>
-                    <td>{{product.product.prix}} €</td>
-                    <td>{{productPriceAll}} €</td>
-                    <td> <a href="{{path('delete_from_cart' , {'id': product.product.id})}}"> Supprimer </a></td>
-                </tr>
-                {% set nbProduct = nbProduct + product.quantity %}
-                {% set Total = Total + (product.product.prix * product.quantity) %}
-            {% endfor %}
-
-          </tbody>
-        </table>
-        <div class="text-right">
-          <span><b>Nombre de produit:</b> {{nbProduct}}</span>
-          <span><b>Total de mon panier:</b> {{ Total | number_format(2, ',', '.') }} €</span>
-        </div>
-        <a href="{{path('order')}}" class="btn btn-primary"> Validez mon panier </a>
+        {% else %}
+          <div class="empty_cart">
+            Rien a afficher
+          </div> 
+        {% endif %}
+        
     </div>
 {% endblock %}

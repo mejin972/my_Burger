@@ -2,41 +2,40 @@
 
 namespace App\Controller;
 
+use App\Classe\Cart;
 use Stripe\Stripe;
 use App\Entity\Order;
 use App\Entity\Products;
 use Stripe\Checkout\Session;
-use App\Service\SessionStripe;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StripeController extends AbstractController
 {
     
     private $entityManager;
-    private $sessionStripe;
+   
 
-    public function __construct(EntityManagerInterface $entityManager, SessionStripe $sessionStripe){
+    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session){
         $this->entityManager = $entityManager;
-        $this->sessionStripe = $sessionStripe;
+        $this->session = $session;
     }
 
     /**
      * @Route("order/create_checkout_session_stripe/{reference}", name="stripe_creat_session")
      */
-    public function index($reference): Response
+    public function index($reference, Cart $cart): Response
     {
-        dump($reference);
+        
         $order = $this->entityManager->getRepository(Order::class)->findOneByReference($reference);
-        dump($order);
-        //dd();
         $product_for_stripe = [];
         $YOUR_DOMAIN = 'http://127.0.0.1:8000';
 
         foreach ($order->getOrderDetails()->getValues() as $produit ) {
-           dump($produit);
+           
            $product_object = $this->entityManager->getRepository(Products::class)->findOneByName($produit->getProduct());
 
             $product_for_stripe[] = [
@@ -54,8 +53,7 @@ class StripeController extends AbstractController
                 //dd($product->getQuantity()),
             ];
         }
-        dump($product_for_stripe);
-        //dd();
+       
 
         Stripe::setApiKey('sk_test_51K03PhJ5R4QCwesL5bzlnteQXPMeptQedfVK40dzLVsQ2ewtad9JyCIK3V1BYdIhsaWkZYBHcs3Ksi15dJEWEXdE00Z4DapK4o');
 
@@ -73,10 +71,26 @@ class StripeController extends AbstractController
                 'cancel_url' => $YOUR_DOMAIN . '/order/echec/{CHECKOUT_SESSION_ID}',
             ]);
             $order->setStripeSessionsId($checkoutSession->id);
-            dump($order);
-            //dd();
+            $cart->remove();
+            
+           
             $this->entityManager->flush();
 
+            // Set your secret key. Remember to switch to your live secret key in production.
+            // See your keys here: https://dashboard.stripe.com/apikeys
+            
+            /*    
+            function print_log($val) {
+            return file_put_contents('php://stderr', print_r($val, TRUE));
+            }
+
+            $payload = @file_get_contents('php://input');
+            */
+            // For now, you only need to log the webhook payload so you can see
+            // the structure.
+            //print_log($payload);
+
+            
             return $this->redirect($checkoutSession->url,302);
 
         }else {
