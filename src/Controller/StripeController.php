@@ -70,10 +70,12 @@ class StripeController extends AbstractController
                 'success_url' => $YOUR_DOMAIN . '/order/comfirmation/{CHECKOUT_SESSION_ID}',
                 'cancel_url' => $YOUR_DOMAIN . '/order/echec/{CHECKOUT_SESSION_ID}',
             ]);
+           
+
             $order->setStripeSessionsId($checkoutSession->id);
             $cart->remove();
             
-           
+            
             $this->entityManager->flush();
 
             // Set your secret key. Remember to switch to your live secret key in production.
@@ -90,13 +92,13 @@ class StripeController extends AbstractController
             // the structure.
             //print_log($payload);
 
-            
+           
             return $this->redirect($checkoutSession->url,302);
 
         }else {
             $error = 'something get wrong';
             return $this->redirectToRoute('recapitulatif_order', array('reference' => $reference));
         }
-        
+       
     }
 }

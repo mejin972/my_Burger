@@ -9,8 +9,16 @@
 {% block body %}
 
     <div class="content_order_detail">
-      
-        <h1> Détail de la commande <span class="bg-success"> {{reference}} </sapn></h1>
+     
+        <h1> Détail de la commande 
+        {% if order.statue is same as(1) %}
+            <span class="badge bg-success"> {{reference}} </span>
+        {% elseif order.statue is same as(2) %}
+            <span class="badge bg-danger"> {{reference}} </span>
+        {% else %}
+            <span class="badge bg-light text-dark"> {{reference}} </span>
+        {% endif %} 
+        </h1>
         <a href="{{path('account_order', {'userId' : app.user.id})}}" class="btn btn-info" title="retourner au compte"> Retour </a>
         <table class="table">
             <thead>

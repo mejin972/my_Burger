@@ -4,8 +4,8 @@
 
 {% block body %}
     <div class="content_comfirOrder">
-        <h1> Félicitation votre commande {{reference}} à été valider avec succès </h1>
-        <div class="centred bg-success">
+        <h1> Félicitation votre commande <span class="badge bg-success"> {{reference}} </span> à été valider avec succès </h1>
+        <div class="centre">
             <p> Retrouver l'historique de vos commande dans votre espace personnel <a href="{{path('account_order', {'userId' : app.user.id})}}" class="btn btn-primary"> Mes commandes </a> .</p>
         </div>
     </div>

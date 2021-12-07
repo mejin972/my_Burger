@@ -38,9 +38,18 @@ class AccountController extends AbstractController
     {
 
         $allUserOrders = $this->entityManager->getRepository(Order::class)->findByUserId($userId);
-        
+        // Pour l'env de test pour eviter le surplus de commande.
+        $finalTestOrders = [];
+        foreach ($allUserOrders as $key) {
+            
+            if ($key->getStripeSessionsId()) {
+                $finalTestOrders[] = $key;
+            }
+        }
+        //dump($finalTestOrders );
+        //dd();
         return $this->render('account/order.html.twig',[
-            'orders' => $allUserOrders,
+            'orders' => $finalTestOrders,
         ]);
     }
 

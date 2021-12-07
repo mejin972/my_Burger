@@ -39,13 +39,16 @@ class OrderController extends AbstractController
      */
     public function confirm( $CHECKOUT_SESSION_ID): Response
     {
+
+        $SUCCESS_ORDER = 1;
+        
         $order = $this->entityManager->getRepository(Order::class)->findOneByStripeId([$CHECKOUT_SESSION_ID]);
+        if ($order) {
+            $order->setStatue($SUCCESS_ORDER);
+            $this->entityManager->flush();
+        }
         $refOrder = $order->getReference();
         $detailOrder = $order->getOrderDetails()->getValues();
-        dump($order);
-        dump($refOrder);
-        dump($detailOrder);
-        dump($CHECKOUT_SESSION_ID);
         //dd();
         
         return $this->render('order/confirm.html.twig',[
@@ -60,8 +63,13 @@ class OrderController extends AbstractController
      */
     public function echec_order($CHECKOUT_SESSION_ID): Response
     {
-     
+        $ECHEC_ORDER = 2;
         $order = $this->entityManager->getRepository(Order::class)->findOneByStripeId([$CHECKOUT_SESSION_ID]);
+        if ($order) {
+            $order->setStatue($ECHEC_ORDER);
+            $this->entityManager->flush();
+        }
+        
         $refOrder = $order->getReference();
         $detailOrder = $order->getOrderDetails()->getValues();
         
