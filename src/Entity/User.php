@@ -67,6 +67,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $favoris;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $orderQualificatif;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -252,6 +257,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->favoris = $favoris;
+
+        return $this;
+    }
+
+    public function getOrderQualificatif(): ?string
+    {
+        return $this->orderQualificatif;
+    }
+
+    public function setOrderQualificatif(?string $orderQualificatif): self
+    {
+        $this->orderQualificatif = $orderQualificatif;
 
         return $this;
     }

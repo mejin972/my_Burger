@@ -46,8 +46,6 @@ class AccountController extends AbstractController
                 $finalTestOrders[] = $key;
             }
         }
-        //dump($finalTestOrders );
-        //dd();
         return $this->render('account/order.html.twig',[
             'orders' => $finalTestOrders,
         ]);
