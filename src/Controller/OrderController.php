@@ -58,7 +58,6 @@ class OrderController extends AbstractController
             $total = $total + $key->getTotal();
             
         }
-        dump($total);
 
         if ($total >= 20) {
             $nbBase =  $user->getOrderQualificatif();
