@@ -43,14 +43,34 @@ class OrderController extends AbstractController
         $SUCCESS_ORDER = 1;
         
         $order = $this->entityManager->getRepository(Order::class)->findOneByStripeId([$CHECKOUT_SESSION_ID]);
+        
+        $user = $this->getUser();
+        dump($user);
+        $total = null;
+        
         if ($order) {
             $order->setStatue($SUCCESS_ORDER);
             $this->entityManager->flush();
         }
         $refOrder = $order->getReference();
         $detailOrder = $order->getOrderDetails()->getValues();
-        //dd();
-        
+        foreach ($detailOrder as $key ) {
+            $total = $total + $key->getTotal();
+            
+        }
+        dump($total);
+
+        if ($total >= 20) {
+            $nbBase =  $user->getOrderQualificatif();
+            if ( $nbBase < 10 ) {
+                $user->setOrderQualificatif($nbBase + 1);
+               
+            }elseif ( $nbBase == 10) {
+                $user->setOrderQualificatif(null);
+            }
+            $this->entityManager->flush();
+        }
+
         return $this->render('order/confirm.html.twig',[
             'CHECKOUT_SESSION_ID' => $CHECKOUT_SESSION_ID,
             'reference' => $refOrder,

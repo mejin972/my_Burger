@@ -33,11 +33,11 @@ class StripeController extends AbstractController
         $order = $this->entityManager->getRepository(Order::class)->findOneByReference($reference);
         $product_for_stripe = [];
         $YOUR_DOMAIN = 'http://127.0.0.1:8000';
+      
 
         foreach ($order->getOrderDetails()->getValues() as $produit ) {
            
            $product_object = $this->entityManager->getRepository(Products::class)->findOneByName($produit->getProduct());
-
             $product_for_stripe[] = [
                 'price_data' =>
                 [
@@ -52,6 +52,7 @@ class StripeController extends AbstractController
                 'quantity' => $produit->getQuantity(),
                 //dd($product->getQuantity()),
             ];
+            
         }
        
 
