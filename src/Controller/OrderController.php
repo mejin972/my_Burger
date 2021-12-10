@@ -45,19 +45,26 @@ class OrderController extends AbstractController
         $order = $this->entityManager->getRepository(Order::class)->findOneByStripeId([$CHECKOUT_SESSION_ID]);
         
         $user = $this->getUser();
-        dump($user);
         $total = null;
         
         if ($order) {
             $order->setStatue($SUCCESS_ORDER);
-            $this->entityManager->flush();
-        }
-        $refOrder = $order->getReference();
-        $detailOrder = $order->getOrderDetails()->getValues();
-        foreach ($detailOrder as $key ) {
-            $total = $total + $key->getTotal();
             
+            $refOrder = $order->getReference();
+            $detailOrder = $order->getOrderDetails()->getValues();
+            foreach ($detailOrder as $key ) {
+                $total = $total + $key->getTotal();
+                
+            }
+    
+            $pointUser = $total / 1;
+            $pS = "$pointUser";
+            $user->setPoint($pS);
+
+            $this->entityManager->flush();
+
         }
+       
 
         if ($total >= 20) {
             $nbBase =  $user->getOrderQualificatif();

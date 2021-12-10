@@ -71,26 +71,32 @@ class CategoryController extends AbstractController
         if ($allBurgers && $this->getUser()) {
 
             $user = $this->getUser();
-            $userFavDetail = $user->getFavoris()->getFavorisDetails()->getValues();
-            $max = count($userFavDetail);
-            $nameFav = [];
-            
-            foreach ($allBurgers as $key => $value) {
-                $burgerName[] = $value->getName();
-                //dd($burgerName);
-                for ($i=0; $i < $max ; $i++) { 
-                    //dump($userFavDetail[$i]->getProduct());
-                    if( !in_array($userFavDetail[$i]->getProduct(),$nameFav) ){
-                        $nameFav[] = $userFavDetail[$i]->getProduct();
-                    }
-                    
-                    if ($burgerName[$key] === $nameFav[$i]) {
-                        
-                        $isFavoris[] = $burgerName[$key];
-                    }
-                    
-                } 
+            if (!empty($user->getFavoris())) {
+                $userFavDetail = $user->getFavoris()->getFavorisDetails()->getValues();
             }
+            if (!empty($userFavDetail)) {
+                $max = count($userFavDetail);
+                $nameFav = [];
+            
+                foreach ($allBurgers as $key => $value) {
+                    $burgerName[] = $value->getName();
+                    //dd($burgerName);
+                    for ($i=0; $i < $max ; $i++) { 
+                        //dump($userFavDetail[$i]->getProduct());
+                        if( !in_array($userFavDetail[$i]->getProduct(),$nameFav) ){
+                            $nameFav[] = $userFavDetail[$i]->getProduct();
+                        }
+                        
+                        if ($burgerName[$key] === $nameFav[$i]) {
+                            
+                            $isFavoris[] = $burgerName[$key];
+                        }
+                        
+                    } 
+                }
+            }
+            
+            
         }
           
         return $this->render('category/menus.html.twig',[

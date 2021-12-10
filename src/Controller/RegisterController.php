@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\RangUser;
 use App\Entity\User;
 use App\Form\InscriptionType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,6 +28,8 @@ class RegisterController extends AbstractController
     {
         $user = new User();
         $email_exist= null;
+        $rangUser = $this->entityManager->getRepository(RangUser::class)->findOneByName('Standard');
+        //dd($rangUser);
         $form = $this->createForm(InscriptionType::class,$user);
 
         $form->handleRequest($request);
@@ -39,23 +42,22 @@ class RegisterController extends AbstractController
                 $user->getPassword()
             );
             $user->setPassword($passwordHash);
+            $user->setRangUser($rangUser);
+            $user->setPoint('0');
 
-            $email_exist = $this->entityManager->getRepository(User::class)->findByEmail($user->getEmail());
+            $email_exist = $this->entityManager->getRepository(User::class)->findOneByEmail($user->getEmail());
 
             if (!empty($email_exist)) {
                $email_exist = 1;
                settype($email_exist,'string');
             }else {
                 try {
-                    //code...
                     $this->entityManager->persist($user);
                     $this->entityManager->flush();
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
             }
-
-            //dd($form->getData());
 
         }
 

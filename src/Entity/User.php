@@ -77,6 +77,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $rangUser;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $point;
+
     
 
     
@@ -292,6 +297,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRangUser(?RangUser $rangUser): self
     {
         $this->rangUser = $rangUser;
+
+        return $this;
+    }
+
+    public function getPoint(): ?int
+    {
+        return $this->point;
+    }
+
+    public function setPoint(?int $point): self
+    {
+        $this->point = $point;
 
         return $this;
     }
