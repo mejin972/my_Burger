@@ -72,6 +72,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $orderQualificatif;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=RangUser::class, inversedBy="user_id")
+     */
+    private $rangUser;
+
+    
+
+    
+
+   
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -272,4 +283,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getRangUser(): ?RangUser
+    {
+        return $this->rangUser;
+    }
+
+    public function setRangUser(?RangUser $rangUser): self
+    {
+        $this->rangUser = $rangUser;
+
+        return $this;
+    }
+
+   
+
+   
+
+    
 }
