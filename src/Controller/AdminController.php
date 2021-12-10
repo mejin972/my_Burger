@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Products;
+use App\Entity\RangUser;
 use App\Form\EditProductType;
 use App\Form\UpdateProductType;
 use App\Form\EditCategoriesType;
+use App\Form\EditRangUserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,6 +57,44 @@ class AdminController extends AbstractController
             'allCategories' => $allCategories,
         ]);
     }
+
+
+    /**
+     * @Route("/admin/rang", name="admin_rang")
+     */
+    public function VoirRang(): Response
+    {
+        $allRang = $this->entityManager->getRepository(RangUser::class)->findAll();
+        //dd($allRang);
+        return $this->render('admin/rangUser.html.twig',[
+            'allRangs' => $allRang,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/edit_rang", name="admin_editRang")
+     */
+    public function EditRang(Request $request): Response
+    {
+        $rang = new RangUser;
+
+        $form = $this->createForm(EditRangUserType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() ) {
+           $rang = $form->getData();
+
+           $this->entityManager->persist($rang);
+           $this->entityManager->flush();
+           
+           return $this->redirectToRoute('admin_rang');
+        }
+        
+        return $this->render('admin/editRangUser.html.twig',[
+            'form' => $form->createView(),
+        ]);
+    }
+
 
     /**
      * @Route("/admin/edit_newProduct", name="admin_editProduct")

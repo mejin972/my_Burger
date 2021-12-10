@@ -10,8 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=RangUserRepository::class)
  */
+
+
 class RangUser
 {
+   
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
