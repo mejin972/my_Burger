@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos récompences - my_Burger {% endblock %}
+
+{% block body %}
+    {{dump(user)}}
+    {{dump(orderQualilifUser)}}
+    <div class="contain_recompance">
+
+        <h1> Achat qualificatif </h1>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: {{pourcentProgress}}%" aria-valuenow="{{orderQualilifUser}}" aria-valuemin="0" aria-valuemax="{{goal}}"> {{orderQualilifUser }} / {{goal}}</div>
+        </div>
+        <small>
+        {% set nbRestant = goal - orderQualilifUser %}
+            {% if orderQualilifUser < goal %} 
+                Il vous reste à effectuer <span class = "gras">{{nbRestant}} </sapn>achats avant de pouvoir béneficier de votre coupon de réduction.
+            {% endif %}
+        </small>
+        <h1> Rang </h1>
+        <div class="rang">
+            <h4> Vous êtes class <span> Standard</span> </h4>
+            
+        </div>
+    </div>
+    
+
+
+{% endblock %}
