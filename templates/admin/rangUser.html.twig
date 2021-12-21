@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="content_category">
-
+    
     <a href="{{path('admin_editRang')}}" class="btn btn-primary"> Edit </a> <br />
     <a href="{{path('admin')}}" class="btn btn-primary"> Retour </a>
 
@@ -18,15 +18,16 @@
                 </tr>
             </thead>
             <tbody>
-            
-                {% for rang in allRangs %}
-                    <tr>
-                        <th scope="row"></th>
-                        <td>{{rang.name}}</td>
-                        <td>{{rang.conditionobtention}}</td>
-                        <td></td>
-                    </tr>
+   
+                {% for nbUser in completeRang %}
+                        <tr>
+                            <th scope="row"></th>
+                            <td>{{nbUser.name}}</td>
+                            <td>{{nbUser.conditionObtention}}</td>
+                            <td>{{nbUser.nbUser}}</td>
+                        </tr>
                 {% endfor %}
+                
             </tbody>
         </table>
     </div>

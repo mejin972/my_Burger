@@ -36,6 +36,17 @@ class RangUserRepository extends ServiceEntityRepository
     }
     */
 
+
+    public function findOneByPointUser($value): ?RangUser
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.condition_obtention = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     /*
     public function findOneBySomeField($value): ?RangUser
     {

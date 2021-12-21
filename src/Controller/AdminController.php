@@ -65,9 +65,26 @@ class AdminController extends AbstractController
     public function VoirRang(): Response
     {
         $allRang = $this->entityManager->getRepository(RangUser::class)->findAll();
-        //dd($allRang);
+        $completeRang =[];
+        
+        foreach ($allRang as $value) {
+            
+            $nbUser = $value->getUserId()->getValues();
+           dump($value);
+            if (!empty($value)) {
+               $completeRang[] = array(
+                    "name" => $value->getName(),
+                    "conditionObtention"=> $value->getConditionObtention(),
+                    "nbUser"=> count($nbUser),
+               );
+            }
+           
+            
+        }
+    
         return $this->render('admin/rangUser.html.twig',[
             'allRangs' => $allRang,
+            'completeRang'=>$completeRang
         ]);
     }
 

@@ -3,11 +3,12 @@
 {% block title %}Vos récompences - my_Burger {% endblock %}
 
 {% block body %}
+
     <div class="contain_recompance">
 
         <h1> Achat qualificatif </h1>
         <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: {{pourcentProgress}}%" aria-valuenow="{{orderQualilifUser}}" aria-valuemin="0" aria-valuemax="{{goal}}"> {{orderQualilifUser }} / {{goal}}</div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: {{pourcentProgressAchatQualif}}%" aria-valuenow="{{orderQualilifUser}}" aria-valuemin="0" aria-valuemax="{{goal}}"> {{orderQualilifUser }} / {{goal}}</div>
         </div>
         <small>
         {% set nbRestant = goal - orderQualilifUser %}
@@ -17,7 +18,11 @@
         </small>
         <h1> Rang </h1>
         <div class="rang">
-            <h4> Vous êtes class <span> Standard</span> </h4>
+            <h4> Vous êtes rang <span> {{rangUser}} </span> </h4>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: {{pourcentProgressNextRang}}%" aria-valuenow="{{pointUser}}" aria-valuemin={{actuelRangUserPointObtention}} aria-valuemax="{{nextRangUserPointObtention}}">{{pointUser}} / {{nextRangUserPointObtention }} </div>
+            </div>
+            <small class=""> Vous avez parcourue <b>{{pourcentProgressNextRang |number_format(1)}} % </b>  du chemin pour le rang suivant, il vous reste à obtenir <b>{{nombrePointObtention}} points </b> pour passer au rang <b>{{nextRangUser}}</b></small>
             
         </div>
     </div>

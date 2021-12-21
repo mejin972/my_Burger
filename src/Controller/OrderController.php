@@ -59,7 +59,9 @@ class OrderController extends AbstractController
     
             $pointUser = $total / 1;
             $pS = "$pointUser";
-            $user->setPoint($pS);
+            $previousSoldePoint = $user->getPoint();
+            $newSoldePointUser = $previousSoldePoint + $pS;
+            $user->setPoint($newSoldePointUser);
 
             $this->entityManager->flush();
 
